@@ -1,7 +1,9 @@
 # Hospital Management System
 
+
 ## Overview
 A web-based Hospital Management System developed using Python, Django, MySQL, HTML, CSS, and JavaScript. The system helps manage patient appointments, token generation, patient records, doctor information, and hospital administration efficiently.
+
 
 ## Features
 - Patient Appointment Booking
@@ -16,6 +18,7 @@ A web-based Hospital Management System developed using Python, Django, MySQL, HT
 - Mobile Number Validation
 - Responsive User Interface
 
+
 ## Technologies Used
 - Python
 - Django
@@ -25,6 +28,7 @@ A web-based Hospital Management System developed using Python, Django, MySQL, HT
 - JavaScript
 - Git & GitHub
 
+
 ## Modules
 - Appointment Booking
 - Patient Management
@@ -33,6 +37,18 @@ A web-based Hospital Management System developed using Python, Django, MySQL, HT
 - Dashboard Analytics
 - Search & Filtering
 - CSV Export
+
+
+  ## Project Highlights
+- Built using Django MVC Architecture
+- Implemented Authentication & Authorization
+- Automatic Daily Token Generation
+- Date-wise Patient Pagination
+- Search by Name, Phone, Token & Date
+- Dashboard Analytics
+- CSV Export Functionality
+- CRUD Operations for Patient Management
+
 
 ## Author
 Kuruva Veeresh
