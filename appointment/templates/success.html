@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Appointment Success</title>
+
+    <style>
+
+        body{
+            background:#e9e9e9;
+            font-family:Arial;
+        }
+
+        .box{
+            width:500px;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            text-align:center;
+            border-radius:10px;
+        }
+
+        h1{
+            color:green;
+            font-size:40px;
+        }
+
+        h2{
+            color:darkblue;
+            font-size:30px;
+        }
+
+        .token{
+            color:red;
+            font-size:60px;
+            font-weight:bold;
+        }
+
+        p{
+            font-size:22px;
+            margin:20px;
+        }
+
+        .buttons{
+            margin-top:30px;
+        }
+
+        .book-btn{
+            background:darkblue;
+            color:white;
+            padding:15px 25px;
+            text-decoration:none;
+            font-size:18px;
+            border-radius:5px;
+        }
+
+        .done-btn{
+            background:green;
+            color:white;
+            padding:15px 25px;
+            text-decoration:none;
+            font-size:18px;
+            border-radius:5px;
+            margin-left:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>
+            Appointment Booked Successfully
+        </h1>
+
+        <h2>{{ day_text }} Token Number </h2>
+
+        <div class="token">
+            {{ token }}
+        </div>
+
+        <p>
+            Patient Name : {{ patient.name }}
+        </p>
+
+        <p>
+            Doctor : {{ patient.doctor.name }} - {{ patient.doctor.specialization }}
+        </p>
+
+        <p>
+            Date : {{ patient.date }}
+        </p>
+
+        <p>
+            Time : {{ patient.time|time:"h:i A" }}
+        </p>
+
+        <div class="buttons">
+
+            <a href="/book/" class="book-btn">
+                Book Another Appointment
+            </a>
+
+<a href="/" class="done-btn">
+    Done
+</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

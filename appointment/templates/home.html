@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Doctor Appointment</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f0f2f5;
+}
+
+.container{
+    width:450px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+h1{
+    text-align:center;
+    color:darkblue;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border:1px solid gray;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:darkblue;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+}
+
+button:hover{
+    background:blue;
+}
+
+.back-btn{
+    background:green;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Doctor Appointment</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label>Name</label>
+
+<input type="text"
+       name="name"
+       required>
+
+<label>Age</label>
+
+<input type="number"
+       name="age"
+       required>
+
+<label>Gender</label>
+
+<select name="gender">
+
+<option>Male</option>
+
+<option>Female</option>
+
+</select>
+
+<label>Phone</label>
+
+<input type="text"
+       name="phone"
+       required>
+
+<label>Appointment Date</label>
+
+<input type="date"
+       name="date"
+       required>
+
+<label>Appointment Time</label>
+
+<input type="time"
+       name="time"
+       required>
+
+<label>Select Doctor</label>
+
+<select name="doctor"
+        required>
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.id }}">
+
+{{ doctor.name }} -
+{{ doctor.specialization }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<button type="submit">
+
+Book Appointment
+
+</button>
+
+</form>
+
+<a href="/patients/">
+
+<button class="back-btn">
+
+Back to Dashboard
+
+</button>
+
+</a>
+
+</div>
+
+</body>
+
+</html>

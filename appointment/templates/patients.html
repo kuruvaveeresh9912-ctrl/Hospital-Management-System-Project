@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Patients Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f0f2f5;
+        }
+
+        h1{
+            text-align: center;
+            color: darkblue;
+        }
+
+        .cards{
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card{
+            width: 220px;
+            padding: 25px;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .total{
+            background: darkblue;
+        }
+
+        .male{
+            background: green;
+        }
+
+        .female{
+            background: deeppink;
+        }
+
+        .top{
+            margin-left: 80px;
+            margin-bottom: 20px;
+        }
+
+        input{
+            padding: 10px;
+            width: 250px;
+        }
+
+        button{
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-btn{
+            background: darkblue;
+        }
+
+        .csv-btn{
+            background: green;
+        }
+
+        .logout-btn{
+            background: red;
+        }
+
+        table{
+            width: 95%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th{
+            background: darkblue;
+            color: white;
+            padding: 15px;
+        }
+
+        td{
+            border: 1px solid gray;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .edit-btn{
+            background: darkblue;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+        }
+
+        .delete-btn{
+            background: red;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+        }
+
+        .pending{
+            color: orange;
+            font-weight: bold;
+        }
+
+        .approved{
+            color: green;
+            font-weight: bold;
+        }
+
+        .completed{
+            color: blue;
+            font-weight: bold;
+        }
+
+        .pagination{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a{
+            text-decoration: none;
+            padding: 10px 15px;
+            background: darkblue;
+            color: white;
+            margin: 5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Patients Dashboard</h1>
+
+<div class="cards">
+
+    <div class="card total">
+
+        Total Patients
+
+        <br><br>
+
+        {{ total_patients }}
+
+    </div>
+
+    <div class="card male">
+        Male Patients
+        <br><br>
+        {{ male_patients }}
+    </div>
+
+    <div class="card female">
+
+        Female Patients
+
+        <br><br>
+
+        {{ female_patients }}
+
+    </div>
+
+</div>
+
+<div class="top">
+
+   
+    <form method="GET">
+
+    <input type="text"
+           name="q"
+           value="{{ query }}"
+           placeholder="Search Name / Phone / Token / Date">
+
+    <button type="submit"
+            class="search-btn">
+        Search
+    </button>
+
+
+        <a href="/home/">
+            <button type="button"
+                    class="search-btn">
+                Add Patient
+            </button>
+        </a>
+
+   <a href="{% url 'export' %}" 
+style="
+background: green;
+color: white;
+padding: 10px 20px;
+text-decoration: none;
+font-size: 16px;
+border-radius: 2px;
+display: inline-block;
+">
+    Export CSV
+</a>
+
+        <a href="/logout/">
+            <button type="button"
+                    class="logout-btn">
+                Logout
+            </button>
+        </a>
+
+    </form>
+
+</div>
+
+<table>
+
+    <tr>
+
+        <th>S.No</th>
+        <th>Token</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Phone</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Doctor</th>
+        <th>Status</th>
+        <th>Action</th>
+
+    </tr>
+
+        {% for patient in patients %}
+
+    <tr>
+
+        <td>{{ forloop.counter }}</td>
+
+        <td>{{ patient.token }}</td>
+
+        <td>{{ patient.name }}</td>
+
+        <td>{{ patient.age }}</td>
+
+        <td>{{ patient.gender }}</td>
+
+        <td>{{ patient.phone }}</td>
+
+        <td>{{ patient.date }}</td>
+
+        <td>{{ patient.time }}</td>
+
+        <td>{{ patient.doctor }}</td>
+
+        <td>
+
+            {% if patient.status == 'Pending' %}
+                <span class="pending">
+                    Pending
+                </span>
+            {% endif %}
+
+            {% if patient.status == 'Approved' %}
+                <span class="approved">
+                    Approved
+                </span>
+            {% endif %}
+
+            {% if patient.status == 'Completed' %}
+                <span class="completed">
+                    Completed
+                </span>
+            {% endif %}
+
+        </td>
+
+        <td>
+
+        
+<a href="/delete/{{ patient.id }}/?page={{ page }}"
+style="
+background:red;
+color:white;
+padding:8px 15px;
+text-decoration:none;
+border-radius:3px;
+">
+    Delete
+</a>
+
+
+<a href="/edit/{{ patient.id }}/?page={{ page }}"
+style="
+background:blue;
+color:white;
+padding:8px 15px;
+text-decoration:none;
+border-radius:3px;
+margin-right:5px;
+">
+    Edit
+</a>
+    
+
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+
+
+<div style="margin-top:20px; text-align:center;">
+
+    {% if page > 1 %}
+
+        <a href="?page=1"
+        style="background:blue;color:white;padding:10px 15px;text-decoration:none;">
+        First
+        </a>
+
+        <a href="?page={{ page|add:'-1' }}"
+        style="background:blue;color:white;padding:10px 15px;text-decoration:none;">
+        Previous
+        </a>
+
+    {% endif %}
+
+    <span style="font-size:25px; margin:0 10px;">
+        Page {{ page }} of {{ total_pages }}
+    </span>
+
+    {% if page < total_pages %}
+
+        <a href="?page={{ page|add:'1' }}"
+        style="background:blue;color:white;padding:10px 15px;text-decoration:none;">
+        Next
+        </a>
+
+        <a href="?page={{ total_pages }}"
+        style="background:blue;color:white;padding:10px 15px;text-decoration:none;">
+        Last
+        </a>
+
+    {% endif %}
+
+</div>
+
+
+
+
+</body>
+
+</html>

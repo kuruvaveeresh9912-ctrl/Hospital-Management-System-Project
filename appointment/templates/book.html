@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Book Appointment</title>
+
+<style>
+
+body{
+background:#f2f2f2;
+font-family:Arial;
+}
+
+.box{
+width:400px;
+margin:auto;
+margin-top:50px;
+background:white;
+padding:30px;
+border-radius:10px;
+}
+
+h1{
+text-align:center;
+color:darkblue;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:15px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:darkblue;
+color:white;
+border:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="box">
+
+<h1>Book Appointment</h1>
+
+<form method="POST" onsubmit="return confirmBooking()">
+
+{% csrf_token %}
+
+<input type="text" name="name" placeholder="Enter Name" required>
+
+<input type="number" name="age" placeholder="Enter Age" required>
+
+<select name="gender">
+
+<option>Male</option>
+<option>Female</option>
+
+</select>
+
+<input type="text" name="phone" placeholder="Enter Phone" maxlength="10" pattern="[0-9]{10}" required>
+
+<input type="date" name="date" required>
+
+<input type="time" name="time" required>
+
+<select name="doctor">
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.id }}">
+
+{{ doctor.name }} - {{ doctor.specialization }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<button type="submit">
+
+Book Appointment
+
+</button>
+
+</form>
+
+</div>
+
+<script>
+
+function confirmBooking(){
+
+return confirm("Are you sure you want to book this appointment?");
+
+}
+
+</script>
+
+</body>
+
+</html>
